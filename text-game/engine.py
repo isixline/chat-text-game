@@ -7,18 +7,16 @@ from generate_open_ai import generate_next_options
 
 def game_loop(story):
     while True:
-        print([obj.text for obj in story.events])
-
         # 获取当前情节
         generate_next_options(story)
         current_event = story.get_current_event()
-        options = story.options
 
         # 输出当前情节文本
-        print(current_event.text)
+        print(current_event.current)
+        print(current_event.next)
 
         # 输出选项
-        for i, option in enumerate(options):
+        for i, option in enumerate(current_event.options):
             print(f"{i + 1}. {option.text}")
 
         # 获取玩家输入的选项序号
@@ -27,11 +25,11 @@ def game_loop(story):
         # 处理玩家输入的选项
         try:
             choice_num = int(choice) - 1
-            if choice_num < 0 or choice_num >= len(options):
+            if choice_num < 0 or choice_num >= len(current_event.options):
                 raise ValueError
         except ValueError:
             print("请输入有效的选项序号！")
             continue
 
         # 更新玩家的当前情节和选择
-        story.add_event(Event(options[choice_num].text))
+        current_event.choice = choice_num
