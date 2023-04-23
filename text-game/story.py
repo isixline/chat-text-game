@@ -8,6 +8,7 @@ class Option:
 
 class Story:
     def __init__(self, events=None, options=None):
+        self.backGroud = ""
         self.events = events or []
         self.options = options or []
 
@@ -16,3 +17,6 @@ class Story:
 
     def get_event(self, event_index):
         return self.events[event_index]
+    
+    def get_current_event(self):
+        return self.events[-1] if self.events else Event(self.backGroud)

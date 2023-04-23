@@ -1,7 +1,8 @@
 import random
 import string
 from story import Event
-from generate_random import generate_next_event
+# from generate_random import generate_next_event
+from generate_open_ai import generate_next_options
 
 
 def game_loop(story):
@@ -9,8 +10,8 @@ def game_loop(story):
         print([obj.text for obj in story.events])
 
         # 获取当前情节
-        generate_next_event(story)
-        current_event = story.get_event(-1)
+        generate_next_options(story)
+        current_event = story.get_current_event()
         options = story.options
 
         # 输出当前情节文本
